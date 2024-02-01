@@ -1,0 +1,138 @@
+<div class="box">
+  <div class="box-header with-border">
+    <h3 class="box-title">Department Details</h3>
+    <div class="box-tools pull-right">
+      <button
+        type="button"
+        class="btn btn-box-tool"
+        data-widget="collapse"
+        data-toggle="tooltip"
+        title="Collapse"
+      >
+        <i class="fa fa-minus"></i>
+      </button>
+      <button
+        type="button"
+        class="btn btn-box-tool"
+        data-widget="remove"
+        data-toggle="tooltip"
+        title="Remove"
+      >
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+  </div>
+  <div class="box-body">
+    <div class="row">
+      <div class="col-md-5">
+        <h4>Create Department</h4>
+        <hr />
+        <div class="well">
+          <form
+            class="form-horizontal"
+            [formGroup]="form"
+            (ngSubmit)="saveUser()"
+          >
+            <div class="form-group">
+              <label>Name:</label>
+              <input
+                type="text"
+                name="name"
+                class="form-control form-control-lg rounded-0"
+                placeholder="Name"
+                formControlName="name"
+              />
+            </div>
+            <div class="form-group">
+              <label for="name" class="form-label">Department:</label>
+              <select
+                matNativeControl
+                required
+                class="form-control form-control-lg rounded-0"
+                formControlName="department"
+              >
+                <option value="engineering">Engineering</option>
+                <option value="hr">HR</option>
+                <option value="finance">Finance</option>
+                <option value="delivery">Delivery</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <div class="col-12">
+                <button
+                  type="submit"
+                  class="btn btn-danger"
+                  style="color: black"
+                >
+                  Register
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-md-7">
+        <h4>List Departments</h4>
+        <hr />
+        <table class="table well">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Option</th>
+          </tr>
+          <tr *ngFor="let item of departmentData">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.address }}</td>
+            <td>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="Edit(item.id)"
+                style="margin-top: 5px"
+              >
+                Edit
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- popUp form -->
+<div class="over-lay" *ngIf="show">
+  <div class="content">
+    <div class="close" (click)="close()">&times;</div>
+    <form [formGroup]="form" (ngSubmit)="updateData()">
+      <div class="form-group">
+        <label>Name:</label>
+        <input
+          type="text"
+          name="name"
+          class="form-control form-control-lg rounded-0"
+          formControlName="name"
+        />
+      </div>
+      <div class="form-group">
+        <label>Department:</label>
+        <input
+          type="text"
+          name="department"
+          class="form-control form-control-lg rounded-0"
+          formControlName="department"
+        />
+      </div>
+      <div class="form-group">
+        <div class="col-12">
+          <button type="submit" class="btn btn-danger" style="color: black">
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,159 @@
+<div class="box">
+  <div class="box-header with-border">
+    <h3 class="box-title">Leaves</h3>
+    <div class="box-tools pull-right">
+      <button
+        type="button"
+        class="btn btn-box-tool"
+        data-widget="collapse"
+        data-toggle="tooltip"
+        title="Collapse"
+      >
+        <i class="fa fa-minus"></i>
+      </button>
+      <button
+        type="button"
+        class="btn btn-box-tool"
+        data-widget="remove"
+        data-toggle="tooltip"
+        title="Remove"
+      >
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+  </div>
+  <div class="box-body">
+    <div class="row">
+      <div class="col-md-12">
+        <h4>Apply Leave</h4>
+        <hr />
+        <div class="well">
+          <form class="form-horizontal" [formGroup]="form"
+          (ngSubmit)="saveLeave()">
+            <div class="form-group">
+              <label>Date:</label>
+              <input
+                type="date"
+                name="date"
+                class="form-control form-control-lg rounded-0"
+                placeholder="Date"
+                formControlName="date"
+              />
+            </div>
+            <div class="form-group">
+              <label>Leave days:</label>
+              <select
+                matNativeControl
+                required
+                class="form-control form-control-lg rounded-0"
+                formControlName="days"
+              >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+              </select>
+            </div>
+            <div class="form-group">
+                <label>Leave Type:</label>
+                <select
+                  matNativeControl
+                  required
+                  class="form-control form-control-lg rounded-0"
+                  formControlName="type"
+                >
+                  <option value="full">Full Day</option>
+                  <option value="half">Half day</option>
+                  <option value="short">Short Leave</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <div class="col-12">
+                  <button
+                    type="submit"
+                    class="btn btn-danger"
+                    style="color: black"
+                  >
+                    Create
+                  </button>
+                </div>
+              </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-md-10">
+        <h4>List Leave Days</h4>
+        <hr />
+        <table class="table well">
+          <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Count</th>
+            <th>LeaveType</th>
+            <th>Options</th>
+          </tr>
+          <tr *ngFor="let item of leaveData">
+            <td>{{ item.id }}</td>
+            <td>{{ item.date }}</td>
+            <td>{{ item.leaveCount }}</td>
+            <td>{{ item.leaveType }}</td>
+            <td>
+              <button
+                class="btn btn-warning"
+                style="margin-top: 5px"
+                (click)="Edit(item.id)"
+              >
+                Edit</button
+              >&nbsp;
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- popUp form -->
+<div class="over-lay" *ngIf="show">
+  <div class="content">
+    <div class="close" (click)="close()">&times;</div>
+    <form [formGroup]="form" (ngSubmit)="updateData()">
+      <div class="form-group">
+        <label>Date:</label>
+              <input
+                type="text"
+                name="date"
+                class="form-control form-control-lg rounded-0"
+                formControlName="date"
+              />
+      </div>
+      <div class="form-group">
+        <label>Leave days:</label>
+              <input
+                type="text"
+                name="days"
+                class="form-control form-control-lg rounded-0"
+                formControlName="days"
+              />
+      </div>
+      <div class="form-group">
+        <label>Leave Type:</label>
+              <input
+                type="text"
+                name="type"
+                class="form-control form-control-lg rounded-0"
+                formControlName="type"
+              />
+      </div>
+      
+      <div class="form-group">
+        <div class="col-12">
+          <button type="submit" class="btn btn-danger" style="color: black">
+            Update
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
